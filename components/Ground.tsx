@@ -12,6 +12,10 @@ export function Ground({ addBlock }: GroundProps) {
     type: 'Static',
     position: [0, -0.5, 0],
     rotation: [-Math.PI / 2, 0, 0],
+    material: {
+      friction: 0.5,
+      restitution: 0,
+    },
   }));
 
   const handleClick = (e: ThreeEvent<MouseEvent>) => {

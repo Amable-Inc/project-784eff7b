@@ -24,6 +24,10 @@ export function Block({ position, type, removeBlock, addBlock }: BlockProps) {
     type: 'Static',
     position,
     args: [1, 1, 1],
+    material: {
+      friction: 0.5,
+      restitution: 0,
+    },
   }));
 
   const handleClick = (e: ThreeEvent<MouseEvent>) => {

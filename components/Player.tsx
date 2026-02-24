@@ -14,17 +14,25 @@ export default function Player() {
   const [ref, api] = useSphere(() => ({
     mass: 1,
     type: 'Dynamic',
-    position: [0, 5, 5],
+    position: [0, 10, 5],
     args: [0.5],
     fixedRotation: true,
+    material: {
+      friction: 0.1,
+      restitution: 0,
+    },
+    linearDamping: 0.9,
   }));
 
   const velocity = useRef([0, 0, 0]);
-  const position = useRef([0, 5, 5]);
+  const position = useRef([0, 10, 5]);
+  const canJump = useRef(false);
   
   useEffect(() => {
     const unsubscribeVelocity = api.velocity.subscribe((v) => {
       velocity.current = v;
+      // Player can jump if vertical velocity is very small (on ground)
+      canJump.current = Math.abs(v[1]) < 0.5;
     });
     
     const unsubscribePosition = api.position.subscribe((p) => {
@@ -136,8 +144,8 @@ export default function Player() {
       api.velocity.set(0, velocity.current[1], 0);
     }
 
-    // Jump (only if on ground - simplified check)
-    if (movement.current.jump && Math.abs(velocity.current[1]) < 0.1) {
+    // Jump (only if on ground)
+    if (movement.current.jump && canJump.current) {
       api.velocity.set(
         velocity.current[0],
         JUMP_FORCE,
