@@ -47,6 +47,20 @@ export default function Home() {
         </div>
       )}
 
+      {/* Crosshair */}
+      {isLocked && (
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-40 pointer-events-none">
+          <div className="relative w-5 h-5">
+            {/* Horizontal line */}
+            <div className="absolute top-1/2 left-0 w-full h-0.5 bg-white -translate-y-1/2"></div>
+            {/* Vertical line */}
+            <div className="absolute top-0 left-1/2 w-0.5 h-full bg-white -translate-x-1/2"></div>
+            {/* Center dot */}
+            <div className="absolute top-1/2 left-1/2 w-1 h-1 bg-white rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+          </div>
+        </div>
+      )}
+
       {/* Block selector */}
       <div className="absolute top-4 left-1/2 -translate-x-1/2 z-40 flex gap-2">
         {blockTypes.map((type, index) => (
